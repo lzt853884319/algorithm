@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>最长子序列</title>
+</head>
+<body>
+<script>
+    /**
+    * @param {string[]} strs
+    * @return {number}
+    */
+    
+    var findLUSlength = function(strs) {
+        function isSubStr(parent, sub) {
+            let p1 = sub.length-1, p2 = parent.length-1;
+            do{
+                if(sub.charAt(p1) == parent.charAt(p2)) {
+                    p2--;
+                    p1--;
+                }else {
+                    p2--
+                }
+                // p1++;
+            }while(p1 != -1 && p2 != -1){}
+            return p1 == -1;
+        }
+
+        strs = strs.sort((a, b) => {
+            let result = b.length -a.length;
+            if(result === 0) {
+                result = b.localeCompare(a);
+            }
+            return result;
+        });
+        let newStrs = [];
+        for(let len = strs.length, i = 0; i< len; i ++) {
+            // 与下一个相等说明重复
+            if(strs[i] === strs[i+1]) {
+                newStrs.push(strs[i]);
+            } else {
+                if(newStrs.every(parent => !isSubStr(parent, strs[i]))) {
+                    return strs[i].length;
+                    break;
+                }
+            }
+        }
+        return -1;
+    };
+    // console.log(isSubStr("adfatds", "adfds"));
+    // const arr = ["aba","cdc","eae"];
+    // const arr = ["aaa","aaa","aa"];
+    // const arr = ["a","b","c","d","e","f","a","b","c","d","e","f"]
+    const arr = ["aabbcc", "aabbcc","bc","bcc","aabbccc"];
+    // const arr = ["aabbcc", "aabbcc","cb","abc"];
+    const result = findLUSlength(arr);
+    // const result = isSubStr("aabbcc", "bc");
+    console.log(result);
+    // console.log();
+//     522 执行用时 :
+// 64 ms,  85.71% 的用户
+// 内存消耗 : 33.9 MB 100.00% 的用户
+</script>
+</body>
+</html>

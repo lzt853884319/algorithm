@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>268缺失数字</title>
+</head>
+<body>
+<script>
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+// var missingNumber = function(nums) {
+//     const arr = new Array(nums.length+1);
+//     nums.forEach(num => {
+//         arr[num] = true;
+//     });
+//     return arr.findIndex(i => !i)
+// };
+var missingNumber = function(nums) {
+    nums.sort((a, b) => a-b);
+    let res = nums.findIndex((i, index) => !(i == index));
+    return (res !== -1) ? res : nums.length
+};
+const result = missingNumber([0,1,2,4]);
+// const result = missingNumber([0]);
+console.log(result)
+</script>
+</body>
+</html>
