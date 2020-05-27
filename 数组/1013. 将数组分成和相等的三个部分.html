@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1013. 将数组分成和相等的三个部分</title>
+</head>
+<body>
+<pre>
+
+</pre>
+<script>
+/**
+ * @param {number[]} A
+ * @return {boolean}
+ */
+function sumFn (arr) {
+    let sum = 0;
+    for(let i =0; i< arr.length; i++) {
+        sum += arr[i]
+    }
+    return sum
+}
+var canThreePartsEqualSum = function(Arr) {
+    const len = Arr.length;
+    let sum = 0;
+    for(let i =0; i< len; i++) {
+        sum += Arr[i]
+    }
+    if(sum % 3 != 0) {
+        return false;
+    }
+
+    let sum1 = 0;
+    let target = 2;
+    for(let i =0; i< len; i++) {
+        sum1 += Arr[i];
+        if(sum1  == sum / 3 && i!=len-1) {
+            sum1 = 0; // 清空
+            target --;
+            if(target == 0) {
+                return true;
+            }
+        }
+    }
+    return false;
+};
+const arr = [1,-1,1,-1]
+const result  = canThreePartsEqualSum(arr);
+console.log(result);
+</script>
+</body>
+</html>
