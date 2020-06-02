@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10- II. 青蛙跳台阶问题</title>
+</head>
+<body>
+<script>
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var numWays = function(n) {
+    let b=0, e=1;
+    for(i=0;i<n;i++) {
+        [b, e] = [e, b+e];
+    }
+    return e
+};
+const result = numWays(10);
+console.log(result);
+// 第 10 题  70题
+</script>
+</body>
+</html>
