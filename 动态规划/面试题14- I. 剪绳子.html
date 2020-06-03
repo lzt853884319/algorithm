@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>面试题14- I. 剪绳子</title>
+</head>
+<body>
+<script>
+
+    // 至少剪一刀
+    // 动态规划法
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var _cuttingRope = function(n) {
+    const resultArr = new Array(n+1).fill(null);
+    // 前四个数
+    Object.assign(resultArr, [0, 1, 2, 3]);
+    for(let i=4; i<=n; i++) {
+        let max = i;
+        for(let j=1; j<=i/2; j++) {
+            max = Math.max(max, resultArr[j] * resultArr[i-j])
+        }
+        resultArr[i] = max;
+    }
+    if(resultArr[n] == n) {
+        // 说明是 2 3 4
+        let max = 0; 
+        for(let i =1; i<n; i++) {
+            max = Math.max(max, i * (n-i))
+        }
+        resultArr[n] =max
+    }
+    return resultArr[n]
+};
+
+var cuttingRope = function(n) {
+    // 贪婪算法 要先证明  大于等于5的n 分割成3和其他  比n大
+    if(n<=4){
+        // 说明是 2 3 4
+        let max = 0; 
+        for(let i =1; i<n; i++) {
+            max = Math.max(max, i * (n-i))
+        }
+        return max
+    }
+    const num = (n / 3) | 0;
+    const mod = n % 3;
+    if(mod == 1) {
+        return Math.pow(3, num-1) * 4
+    } else if(mod == 0) {
+        return Math.pow(3, num)
+    } else {
+        return Math.pow(3, num) * 2
+    }
+};
+const result = cuttingRope(10);
+console.log(result)
+</script>
+</body>
+</html>
