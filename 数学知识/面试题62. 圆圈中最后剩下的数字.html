@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>面试题62. 圆圈中最后剩下的数字</title>
+</head>
+<body>
+<script>
+/**
+ * @param {number} n
+ * @param {number} m
+ * @return {number}
+ */
+var lastRemaining = function(n, m) {
+    // 坐标即结果值
+    let ans = 0;
+    for(let i =2; i<=n; i++) {
+        ans = (m + ans) % n
+    }
+    return ans;
+};
+</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>面试题57 - II. 和为s的连续正数序列</title>
+</head>
+<body>
+<script>
+    /**
+ * @param {number} target
+ * @return {number[][]}
+ */
+var findContinuousSequence = function(target) {
+    let small = 1;
+    let big = 1;
+    let result = [];
+    function Sum (small, big) {
+        let sum = 0;
+        for(;small<=big;small ++) {
+            sum += small
+        }
+        return sum
+    }
+    const generateResult = (small, big) => {
+        let result = []
+        for(;small<=big;small ++) {
+            result.push(small)
+        }
+        return result
+    }
+    while(small <= target / 2 | 0 && big < target) {
+        if(Sum(small, big) > target) {
+            small ++
+        } else {
+            if(Sum(small, big) == target) {
+                result.push(generateResult(small, big));
+                small ++;
+                big ++;
+            }else if(Sum(small, big) < target){
+                big ++;
+            }
+        }
+    }
+    return result;
+};
+console.log(findContinuousSequence(15));
+
+</script>
+</body>
+</html>
