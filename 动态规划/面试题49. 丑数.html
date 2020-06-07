@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>面试题49. 丑数</title>
+</head>
+<body>
+<script>
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var nthUglyNumber = function(n) {
+    if(n == 1) return [1];
+    const uglyArr = [1];
+    let piple2 = 0;
+    let piple3 = 0;
+    let piple5 = 0;
+
+    for(let i =1; i<n; i++) {
+        const result = Math.min(uglyArr[piple2] * 2, uglyArr[piple3] * 3, uglyArr[piple5]*5);
+        if(result === uglyArr[piple2] * 2) {
+            ++piple2
+        }
+        if(result === uglyArr[piple3] * 3) {
+            ++piple3
+        }
+        if(result === uglyArr[piple5] * 5) {
+            ++piple5
+        }
+        uglyArr.push(result);
+    }
+    return uglyArr[uglyArr.length - 1];
+};
+console.log(nthUglyNumber(10))
+</script>
+</body>
+</html>

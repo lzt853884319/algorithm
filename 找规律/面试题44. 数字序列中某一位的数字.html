@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>面试题44. 数字序列中某一位的数字</title>
+</head>
+<body>
+<script>
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var findNthDigit = function(n) {
+    let digit = 1;
+
+    const sumStr = (digit) => {
+        let num =0;
+        for(let i =1; i<=digit; i++){
+            let newNum = i == 1 ? 10 * 1 : Math.pow(10, i-1) * 9 * i;
+            num += newNum;
+        }
+        return num-1 > 0 ? num-1 :0;
+
+    }
+    
+    while(n > sumStr(digit)) {
+        digit += 1;
+    }
+    // console.log(digit);
+    const beforeNum = sumStr(digit-1);
+
+    const index = (((n - beforeNum) / digit) | 0) + 1;
+
+    let thisNum = index + (digit == 1 ? 0 : Math.pow(10, digit -1 )) -1 ;
+    // thisNum = thisNum < 10 ?  thisNum :  thisNum -1;
+    let  remaider = ((n - beforeNum)) % digit;
+    // remaider = remaider > 0 ? remaider 
+
+    if(digit == 1) return thisNum
+    const num = remaider > 0 ? 
+                `${thisNum}`.charAt(remaider -1)
+                :
+                `${thisNum - 1}`.charAt(digit -1)
+    return num;
+};
+console.log(findNthDigit(1000));
+console.log(findNthDigit(3))
+console.log(findNthDigit(10));
+console.log(findNthDigit(17));
+</script>
+</body>
+</html>
