@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>110. 平衡二叉树</title>
+</head>
+<body>
+    <script src="./buildTree.js"></script>
+    <script>
+        const root = buildTree([3,9,20,15,7], [9,3,15,20,7]);
+        // const root = buildTree([1,2,3,4,4,3,2], [4,3,4,2,3,1,2]);
+        /**
+         * @param {TreeNode} root
+         * @return {boolean}
+         */
+        var isBalanced = function(root) {
+            let height = 0;
+            let balanceFlag = true;
+            function isBalanced1 (root, cur) {
+                if(!root) {
+                    return cur
+                }
+                cur = cur + 1;
+                const heightL = isBalanced1(root.left, cur);
+                const heightR = isBalanced1(root.right, cur);
+
+                const height = Math.max(heightR, heightL);
+                const balance = (Math.abs(heightL - heightR) <= 1);
+                if(!balance) {
+                    balanceFlag = false;
+                }
+                return height
+            }
+            isBalanced1(root, height);
+            return balanceFlag
+        };
+        console.log(isBalanced(root))
+    </script>
+</body>
+</html>

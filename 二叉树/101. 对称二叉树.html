@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>101. 对称二叉树</title>
+</head>
+<body>
+    <script src="./buildTree.js"></script>
+    <script>
+        const root = buildTree([3,9,20,15,7], [9,3,15,20,7]);
+        // const root = buildTree([1,2,3,4,4,3,2], [4,3,4,2,3,1,2]);
+        /**
+         * @param {TreeNode} root
+         * @return {boolean}
+         */
+        var isSymmetric = function(root) {
+            if(!root) {
+                return true;
+            }
+            const isEqual = (left, right) => {
+                if(!left && !right) return true;
+                if(!left || !right) return false;
+                return (left.val === right.val) && isEqual(left.right, right.left) && isEqual(right.right, left.left)
+            }
+            return isEqual(root.left, root.right)
+        };
+        console.log(isSymmetric(root))
+    </script>
+</body>
+</html>
