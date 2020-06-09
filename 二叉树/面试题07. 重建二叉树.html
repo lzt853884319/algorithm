@@ -14,6 +14,10 @@
  *     this.left = this.right = null;
  * }
  */
+function TreeNode(val) {
+    this.val = val;
+    this.left = this.right = null;
+}
 /**
  * @param {number[]} preorder
  * @param {number[]} inorder
@@ -24,34 +28,54 @@ const inorder = [9,3,15,20,7];
 var buildTree = function(preorder, inorder) {
     const res = [];
     let plies = 0;
-    let sum = 0;
-    var buildTree1 = function(preorder, inorder, plies = 0, root = 0) {
-        sum = Math.max(plies, sum);
+    var buildTree1 = function(preorder, inorder) {
         const rootNode = preorder[0];
-        res[root] = rootNode;
+        if(!rootNode && rootNode != 0) {
+            return null
+        }
+        const node = new TreeNode(rootNode);
         const index = inorder.indexOf(rootNode);
         const leftInorder = inorder.slice(0, index);
         const rightInorder = inorder.slice(index+1);
         const leftPreorder = preorder.slice(1, index + 1);
         const rightPreorder = preorder.slice(index+1);
-        res[root * 2 +1] = leftPreorder[0];
-        res[root * 2 +2] = rightPreorder[0];
         if(leftPreorder.length > 1) {
-            buildTree1(leftPreorder, leftInorder, plies+1, root *2 +1);
+
+            node.left = buildTree1(leftPreorder, leftInorder);
+        } else if(leftPreorder.length == 1) {
+            node.left = new TreeNode(leftPreorder[0]);
         }
         if(rightPreorder.length > 1) {
-            buildTree1(rightPreorder, rightInorder, plies+1,  root *2 +2);
+            node.right = buildTree1(rightPreorder, rightInorder);
+        }else if(rightPreorder.length == 1){
+            node.right = new TreeNode(rightPreorder[0]);
         }
+        return node
     };
-    buildTree1(preorder, inorder, plies);
-    const allIndex = (2 << (sum + 1)) - 2;
-    for(let i =0; i< allIndex; i ++) {
-        res[i] = Object.is(res[i], undefined) ? null : res[i];
-    }
-    // console.log(res[3])
-    return res;
+    return buildTree1(preorder, inorder, plies);
 };
-const result = buildTree(preorder, inorder);
+
+// var buildTreeOther = function (preorder, inorder, a, b, c, d) {
+
+//     if (typeof a !== "number") {
+//     a = 0
+//     b = preorder.length - 1
+//     c = 0
+//     d = inorder.length - 1
+//     }
+
+//     if (a > b) return null
+//     var node = new TreeNode(preorder[a])
+//     var index = inorder.findIndex((n, i) => {
+//     if (i >= c && i <= d && n === preorder[a]) return true
+//     else return false
+//     })
+//     node.left = buildTree(preorder, inorder, a + 1, a + index - c, c, index - 1)
+//     node.right = buildTree(preorder, inorder, a + index - c + 1, b, index + 1, d)
+//     return node
+// };
+const result = buildTree([1], [1]);
+// const result = buildTreeOther([], []);
 console.log(result); // [3,9,20,null,null,15,7]
 </script>
 </body>
