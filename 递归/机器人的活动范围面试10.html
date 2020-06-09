@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+/**
+ * @param {number} m
+ * @param {number} n
+ * @param {number} k
+ * @return {number}
+ */
+var movingCount = function(m, n, k) {
+    const dirtyArr = new Array(m * n).fill(false);
+    let count = 0;
+    count= movingCountSum(0, 0, m, n, k ,dirtyArr);
+    return count;
+};
+var movingCountSum = function(x, y, m, n, k, dirtyArr) {
+    let count = 0;
+    const check = (CoorA, CoorB, k) => {
+        const [x1, y1] = CoorA;
+        const [x2, y2] = CoorB;
+        if((dirtyArr[x1 * (y2) + y1]) || !(x1>=0 && x1<x2 && y1>=0 && y1 <y2)) return false;
+        // const inner = (x1>=0 && x1<= x2 && y1>=0 && y1 <=y2);
+        dirtyArr[x1 * (y2) + y1] = true;
+        const flag = [x1, y1].reduce((prev, num) => {
+            const sum = `${num}`.split("").reduce((prev1, i) => {
+                return prev1 + Number(i);
+            }, 0);
+            return prev + sum;
+        }, 0) <= k;
+        console.log(`[${x1},${y1}]: ${flag}`);
+        return flag
+    }
+
+
+    if(check([x, y], [m, n], k, dirtyArr)) {
+        count = 1 + movingCountSum(x+1, y, m , n, k, dirtyArr)
+                  + movingCountSum(x-1, y, m , n, k, dirtyArr)
+                  + movingCountSum(x, y+1, m , n, k, dirtyArr)
+                  + movingCountSum(x, y-1, m , n, k, dirtyArr)
+
+    }
+    return count;
+};
+const arr = [1,2,1]
+// const arr = [4,2,3]
+console.log(movingCount(...arr))
+</script>
+</body>
+</html>

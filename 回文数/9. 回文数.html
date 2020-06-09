@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9. 回文数</title>
+</head>
+<body>
+<script>
+/**
+ * @param {number} x
+ * @return {boolean}
+ */
+ var isPalindrome = function(x) {
+    if(x <0 ) return false;
+    if(x == 0) return true;
+    let resultNum = 0;
+    let cloneNum = x;
+    let digit = 0;
+    do{
+        digit ++;
+        let aa = x % (Math.pow(10, digit));
+        resultNum = resultNum * 10 + aa / Math.pow(10, digit-1);
+        x = x - aa;
+    } while(x >= Math.pow(10, digit));
+    return cloneNum === resultNum;
+};
+console.log(isPalindrome(121))
+</script>
+</body>
+</html>

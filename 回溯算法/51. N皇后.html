@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>51. N皇后</title>
+</head>
+<body>
+<script>
+/**
+ * @param {number} n
+ * @return {string[][]}
+ */
+var solveNQueens = function(n) {
+    const checkArr =[[], [], [] ,[]];
+    let resultArr = [];
+    const result = [];
+    function recursion (x) {
+        if(x == n) {
+            return;
+        }
+        for(let y=0;y<n;y++) {
+            if(!check(x, y)) {
+                continue;
+            }
+            checkArr[0].push(x)
+            checkArr[1].push(y)
+            checkArr[2].push(y-x)
+            checkArr[3].push(y+x)
+            result.push(y);
+            if(x===n-1) {
+                resultArr.push([...result]);
+            }
+            recursion(x+1);
+            result.pop();
+            checkArr[0].pop()
+            checkArr[1].pop()
+            checkArr[2].pop()
+            checkArr[3].pop()
+        }
+
+    }
+    recursion(0);
+    resultArr =  resultArr.map(result => {
+        return result.map(num => (".".repeat(num) + "Q" + ".".repeat(n-num-1)))
+    })
+    console.log(resultArr);
+
+    return resultArr
+    function check(x, y) {
+        const [left, top, lefttop, righttop] = checkArr;
+        return !(left.includes(x) || top.includes(y) || lefttop.includes(y-x) || righttop.includes(y+x));
+    }
+};
+// 回溯 尝试一个结果不行 就pop掉
+solveNQueens(4);
+</script>
+</body>
+</html>

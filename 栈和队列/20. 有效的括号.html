@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20. 有效的括号</title>
+</head>
+<body>
+<script>
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isValid = function(s) {
+    const baseStr = "()[]{}";
+    function findAssociatedStr(str , arrStr) {
+        const index = baseStr.indexOf(str);
+        if( index % 2 === 0) {
+            return false
+        }else {
+            return baseStr.charAt(index - 1) === arrStr;
+        }
+    }
+    let arr = [];
+    for(let i=0;i<s.length;i++) {
+        const str = s.charAt(i);
+        if(findAssociatedStr(str, arr[arr.length-1])) {
+            arr.pop();
+        }else {
+            arr.push(str)
+        }
+    }
+    return arr.length == 0;
+};
+const str = "[()[]{}]";
+console.log(isValid(str));
+// 进栈出栈
+</script>
+</body>
+</html>

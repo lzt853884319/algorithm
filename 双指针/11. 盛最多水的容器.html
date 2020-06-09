@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11. 盛最多水的容器</title>
+</head>
+<body>
+<script>
+/**
+ * @param {number[]} arrs
+ * @return {number}
+ */
+var maxArea = function(arrs) {
+    let l =0, r = arrs.length - 1;
+    let result = 0;
+    while(l<r) {
+        const newResult = (r - l) * Math.min(arrs[l], arrs[r]);
+        (arrs[l] < arrs[r]) ? l++ : r--;
+        result = Math.max(result, newResult)
+    }
+    return result;
+};
+const arr = [1,8,6,2,5,4,8,3,7];
+const result = maxArea(arr);
+console.log(result);
+</script>
+</body>
+</html>

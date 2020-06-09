@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>22. 括号生成</title>
+</head>
+<body>
+<script>
+/**
+ * @param {number} n
+ * @return {string[]}
+ */
+var generateParenthesis = function(n) {
+    const resultArr = [];
+    function isValid(l, r, sum, arr) {
+        if(sum < 0) {
+            return 0;
+        } else if(l == 0) {
+            const fillArr = new Array(sum).fill(")");
+            resultArr.push([...arr, ...fillArr].join(""));
+            return 1;
+        } else {
+            return isValid(l-1, r, sum+1, [...arr, "("]) + isValid(l, r-1, sum-1, [...arr, ")"]);
+        }
+    }
+    isValid(n, n, 0, []);
+    return resultArr;
+};
+const result = generateParenthesis(3);
+console.log(result)
+</script>
+</body>
+</html>
