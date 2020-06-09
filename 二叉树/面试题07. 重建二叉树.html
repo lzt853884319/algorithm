@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {number[]} preorder
+ * @param {number[]} inorder
+ * @return {TreeNode}
+ */
+const preorder = [3,9,20,15,7];
+const inorder = [9,3,15,20,7];
+var buildTree = function(preorder, inorder) {
+    const res = [];
+    let plies = 0;
+    let sum = 0;
+    var buildTree1 = function(preorder, inorder, plies = 0, root = 0) {
+        sum = Math.max(plies, sum);
+        const rootNode = preorder[0];
+        res[root] = rootNode;
+        const index = inorder.indexOf(rootNode);
+        const leftInorder = inorder.slice(0, index);
+        const rightInorder = inorder.slice(index+1);
+        const leftPreorder = preorder.slice(1, index + 1);
+        const rightPreorder = preorder.slice(index+1);
+        res[root * 2 +1] = leftPreorder[0];
+        res[root * 2 +2] = rightPreorder[0];
+        if(leftPreorder.length > 1) {
+            buildTree1(leftPreorder, leftInorder, plies+1, root *2 +1);
+        }
+        if(rightPreorder.length > 1) {
+            buildTree1(rightPreorder, rightInorder, plies+1,  root *2 +2);
+        }
+    };
+    buildTree1(preorder, inorder, plies);
+    const allIndex = (2 << (sum + 1)) - 2;
+    for(let i =0; i< allIndex; i ++) {
+        res[i] = Object.is(res[i], undefined) ? null : res[i];
+    }
+    // console.log(res[3])
+    return res;
+};
+const result = buildTree(preorder, inorder);
+console.log(result); // [3,9,20,null,null,15,7]
+</script>
+</body>
+</html>
