@@ -15,40 +15,47 @@
     nums.sort((a,b) => a-b);
     let result = []
     for(let i =0; i<nums.length-2; i ++) {
-        let first = nums[i];
+        // 去重
+        if(i>=1 && nums[i] == nums[i-1]) {
+            continue
+        }
         let l = i + 1;
         let r = nums.length-1;
-        let count = 0
-        while(l<r && count <100) {
-            count++
+        while(l<r) {
             let sum = nums[l] + nums[i] + nums[r];
             if(sum == 0) {
                 result.push([nums[i], nums[l], nums[r]]);
-
-                let cur1 = nums [l];
-                while(l<r && nums[r-1] != cur1) {
+                let cur = nums [r];
                     r-- 
-                } 
+                while(l<=r && nums[r-1] == cur) {
+                    r-- 
+                }
                 let cur2 = nums [l];
-                while(l<r && nums[l+1] != cur2) {
                     l++
-                } 
+                while(l<=r && nums[l+1] == cur2) {
+                    l++
+                }
             } else if(sum <0) {
-                let cur = nums [l];
-                while(l<r && nums[l+1] != cur) {
                     l++
-                } 
-            } else if(sum > 0) {
                 let cur = nums [l];
-                while(l<r && nums[r-1] != cur) {
+                while(l<=r && nums[l+1] == cur) {
+                    l++
+                }
+            } else if(sum > 0) {
+                let cur = nums [r];
                     r-- 
-                } 
+                while(l<=r && nums[l+1] == cur) {
+                    r-- 
+                }
             }
         }
     }
     return result
 };
-console.log(threeSum([-1, 0, 1, 2, -1, -4]));
+// [-2,-1,0,1,2,3]
+// [[-2,-1,3],[-2,0,2],[-1,0,1]]
+console.log(threeSum([-2,0,0,2,2]));
+
 </script>
 </body>
 </html>
