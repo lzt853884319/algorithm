@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>面试题32 - I. 从上到下打印二叉树</title>
+</head>
+<body>
+    <script src="./generateTree.js"></script>
+<script>
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+const tree = generateTree([3,9,20,null,null,15,7]);
+var levelOrder = function(root) {
+    let dealArr = [root];
+    let result = [];
+    do{
+        const node = dealArr.shift();
+        if(node != null) {
+            result.push(node.val);
+            dealArr.push(node.left, node.right);
+        }
+    }while(dealArr.length >0);
+    return result;
+};
+console.log(levelOrder(tree));
+</script>
+</body>
+</html>

@@ -10,12 +10,10 @@ function TreeNode(val) {
 function generateTree(arr) {
     let root = new TreeNode(arr[0]);
     let par = root;
-    let child = 0;
     let waitLeft = true;
     let treeArr = [root];
 
-    while(child < arr.length) {
-        child ++;
+    for(let child=1;child < arr.length; child++) {
         // if(arr[child] !== null) {
             const newTree = arr[child] !== null ? new TreeNode(arr[child]) : null;
             if(waitLeft) {
@@ -33,6 +31,7 @@ function generateTree(arr) {
         // }
     }
     // const node = setLeaf(0)
-    console.log(arr)
+    // console.log(arr)
+    console.log(root)
     return root
 }

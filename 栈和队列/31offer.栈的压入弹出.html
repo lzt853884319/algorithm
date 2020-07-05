@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>栈的压入弹出</title>
+</head>
+<body>
+<script>
+/**
+ * @param {number[]} pushed
+ * @param {number[]} popped
+ * @return {boolean}
+ */
+//  pushed = [1,2,3,4,5], popped = [4,5,3,2,1]
+var validateStackSequences = function(pushed, popped) {
+    if(pushed.length === 0 && )
+    let stack = [];
+    // let index = 0;
+    while(popped.length > 0) {
+        let target = popped.shift();
+        // 栈内已有
+        if(target == stack[stack.length - 1]) {
+            stack.pop();
+            continue
+        }else {
+            let index = 0;
+            while(pushed[0] != target && pushed.length >0) {
+                stack.push(pushed.shift());
+            }
+            if(pushed.length === 0) {
+                return false;
+            } else {
+                // 丢弃不要即可
+                pushed.shift();
+            }
+        }
+    }
+    return true;
+};
+const result = validateStackSequences([1,2,3,4,5], [4,5,3,1,2]);
+console.log(result);
+</script>
+</body>
+</html>

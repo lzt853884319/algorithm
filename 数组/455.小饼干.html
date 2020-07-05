@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /**
+ * @param {number[]} g
+ * @param {number[]} s
+ * @return {number}
+ */
+var findContentChildren = function(g, s) {
+    let gLen = g.length-1;
+    let sLen = s.length-1;
+    g.sort((a,b) => b-a);
+    s.sort((a,b) => b-a);
+    let conut = 0;
+    while(gLen >= 0 && sLen>=0) {
+        console.log(g[gLen]);
+        console.log(s[sLen]);
+        if(g[gLen] <= s[sLen]) {
+            g.pop();
+            s.pop();
+            conut++;
+            sLen--;
+            gLen--;
+        } else {
+            s.pop();
+            sLen--;
+        }
+    }
+    return conut;
+};
+console.log(findContentChildren([1,2], [1,1,3]));
+</script>
+</body>
+</html>
